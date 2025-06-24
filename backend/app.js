@@ -13,6 +13,7 @@ const isValidDate = (date) => {
 };
 
 // === APOD Route ===
+console.log('Registering route: /api/apod');
 app.get('/api/apod', async (req, res) => {
   const { date } = req.query;
 
@@ -32,6 +33,7 @@ app.get('/api/apod', async (req, res) => {
 });
 
 // === Mars Rover Photos Route ===
+console.log('Registering route: /api/mars');
 app.get('/api/mars', async (req, res) => {
   const { sol = '1000' } = req.query;
 
@@ -51,6 +53,7 @@ app.get('/api/mars', async (req, res) => {
 });
 
 // === Asteroids Data Route ===
+console.log('Registering route: /api/asteroids');
 app.get('/api/asteroids', async (req, res) => {
   const today = new Date();
   const start_date = req.query.start_date || new Date(today.getTime() - 6 * 86400000).toISOString().slice(0, 10);
@@ -76,6 +79,7 @@ app.get('/api/asteroids', async (req, res) => {
 });
 
 // === Image Proxy Route ===
+console.log('Registering route: /api/image-proxy');
 app.get('/api/image-proxy', async (req, res) => {
   const { url } = req.query;
 
@@ -96,6 +100,7 @@ app.get('/api/image-proxy', async (req, res) => {
 
 // === NASA Media Search Route ===
 // NOTE: Updated route to /api/nasamedia to match test expectations
+console.log('Registering route: /api/nasa-media');
 app.get('/api/nasa-media', async (req, res) => {
     const query = req.query.q;
     if (!query) {
@@ -114,7 +119,7 @@ app.get('/api/nasa-media', async (req, res) => {
     }
   });
 
-  
+console.log('Registering route: /api/neows');
 app.get('/api/neows', async (req, res) => {
     const today = new Date();
     const maxRangeDays = 7;
@@ -162,6 +167,7 @@ app.get('/api/neows', async (req, res) => {
   
 
 // === EPIC Route ===
+console.log('Registering route: /api/epic');
 app.get('/api/epic', async (req, res) => {
   // Optionally accept a date query param to filter EPIC images
   const { date } = req.query;
