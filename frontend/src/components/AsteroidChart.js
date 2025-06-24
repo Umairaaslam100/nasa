@@ -5,8 +5,12 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
 } from 'chart.js';
+import API_BASE_URL from '../config';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement);
 
@@ -14,9 +18,10 @@ function AsteroidChart() {
   const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/asteroids')
-      .then(res => {
-        const data = res.data.near_earth_objects;
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/api/asteroids`);
+        const data = response.data.near_earth_objects;
         if (!data) {
           console.error('No near_earth_objects found in response');
           return;
@@ -35,10 +40,12 @@ function AsteroidChart() {
             },
           ],
         });
-      })
-      .catch(err => {
+      } catch (err) {
         console.error('Failed to fetch asteroid data:', err);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (

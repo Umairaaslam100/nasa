@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import API_BASE_URL from '../config';
 
 function ApodViewer() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -12,7 +13,7 @@ function ApodViewer() {
   const fetchApodByDate = async (date) => {
     const formattedDate = date.toISOString().split('T')[0];
     try {
-      const res = await axios.get(`http://localhost:5000/api/apod?date=${formattedDate}`);
+      const res = await axios.get(`${API_BASE_URL}/api/apod?date=${formattedDate}`);
       return res.data;
     } catch (err) {
       console.error(`Error fetching APOD for ${formattedDate}`, err);
@@ -44,7 +45,7 @@ function ApodViewer() {
   const handleDownload = async (url, title, date) => {
     try {
       // Proxy endpoint with encoded original image URL
-      const proxyUrl = `http://localhost:5000/api/image-proxy?url=${encodeURIComponent(url)}`;
+      const proxyUrl = `${API_BASE_URL}/api/image-proxy?url=${encodeURIComponent(url)}`;
 
       const response = await fetch(proxyUrl);
       if (!response.ok) throw new Error('Network response was not ok');

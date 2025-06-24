@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 
 function MarsRoverPhotos() {
   const [photos, setPhotos] = useState([]);
@@ -8,7 +9,7 @@ function MarsRoverPhotos() {
 
   const fetchPhotos = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/mars?sol=1000');
+      const res = await axios.get(`${API_BASE_URL}/api/mars?sol=1000`);
       const newPhotos = res.data.photos.slice(0, 12);
       setLoading(false);
 
@@ -32,7 +33,7 @@ function MarsRoverPhotos() {
 
   const handleDownload = async (imgSrc, photoId) => {
     try {
-      const proxyUrl = `http://localhost:5000/api/image-proxy?url=${encodeURIComponent(imgSrc)}`;
+      const proxyUrl = `${API_BASE_URL}/api/image-proxy?url=${encodeURIComponent(imgSrc)}`;
       const response = await fetch(proxyUrl);
       if (!response.ok) throw new Error('Network response was not ok');
       const blob = await response.blob();

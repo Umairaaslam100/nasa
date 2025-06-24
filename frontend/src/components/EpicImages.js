@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 
 function EpicImages() {
   const [images, setImages] = useState([]);
@@ -7,9 +8,9 @@ function EpicImages() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    async function fetchEpic() {
+    const fetchEPICImages = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/epic');  // 🔁 Call your backend
+        const res = await axios.get(`${API_BASE_URL}/api/epic`);  // �� Call your backend
         setImages(res.data.slice(0, 6));
       } catch (err) {
         console.error('Failed to fetch EPIC images:', err);
@@ -17,9 +18,9 @@ function EpicImages() {
       } finally {
         setLoading(false);
       }
-    }
+    };
 
-    fetchEpic();
+    fetchEPICImages();
   }, []);
 
   const getImageUrl = (image, date) => {

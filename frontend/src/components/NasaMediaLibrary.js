@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 
 function NasaMediaLibrary() {
   const [query, setQuery] = useState('');
@@ -7,12 +8,14 @@ function NasaMediaLibrary() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSearch = async () => {
-    if (!query) return;
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!query.trim()) return;
+
     setLoading(true);
-    setError('');
+    setError(null);
     try {
-      const res = await axios.get(`http://localhost:5000/api/nasa-media?q=${encodeURIComponent(query)}`);
+      const res = await axios.get(`${API_BASE_URL}/api/nasa-media?q=${encodeURIComponent(query)}`);
       setResults(res.data.collection.items.slice(0, 12));
     } catch (err) {
       console.error('NASA media search failed', err);
@@ -31,10 +34,10 @@ function NasaMediaLibrary() {
           placeholder="Search NASA media..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch(e)}
         />
         <button
-          onClick={handleSearch}
+          onClick={(e) => handleSearch(e)}
           className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold px-4 rounded-r"
         >
           Search

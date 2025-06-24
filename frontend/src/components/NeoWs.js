@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 
 function NeoWs() {
   const [asteroids, setAsteroids] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    async function fetchNeoWs() {
+    const fetchNeoWs = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/neows');  // ✅ Backend endpoint
+        const res = await axios.get(`${API_BASE_URL}/api/neows`);  // ✅ Backend endpoint
         const neos = Object.values(res.data.near_earth_objects).flat();
         setAsteroids(neos);
       } catch (err) {
         console.error('Failed to fetch NeoWs data', err);
         setError('Failed to load Near Earth Object data. Please try again later.');
       }
-    }
+    };
 
     fetchNeoWs();
   }, []);
