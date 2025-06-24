@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest --testEnvironment=node"
+    "test": "jest --testEnvironment=node",
+    "start": "node index.js"
   },
   "dependencies": {
     "axios": "^1.10.0",
@@ -14,5 +15,13 @@
   "devDependencies": {
     "jest": "^29.5.0",
     "supertest": "^6.3.3"
-  }
+  },
+  "description": "",
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
 }
